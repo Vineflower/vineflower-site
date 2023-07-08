@@ -1,0 +1,16 @@
+# IDE
+
+/.idea/
+/.vscode/
+!/.vscode/tasks.json
+/build/
+/*.iml
+/*.ipr
+/source/_build/
+
+# Virtualenv
+/ENV/
+/env/
+
+# Python
+__pycache__/

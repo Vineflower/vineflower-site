@@ -1,0 +1,30 @@
+{
+  "_comment": "Based on ammaraskar/sphinx-problem-matcher but adapted for sphinxcontrib-spelling",
+  "problemMatcher": [
+    {
+      "owner": "sphinx-spelling-problem-matcher-loose-no-severity",
+      "severity": "warning",
+      "pattern": [
+        {
+          "_comment": "Looks for file names ending with .rst or .md and line numbers but without severity",
+          "regexp": "^(.*\\.(?:rst|md)):(\\d+): : Spell check: (.*)$",
+          "file": 1,
+          "line": 2,
+          "message": 3
+        }
+      ]
+    },
+    {
+      "owner": "sphinx-spelling-problem-matcher-loose-no-severity-or-line",
+      "severity": "warning",
+      "pattern": [
+        {
+          "_comment": "Looks for file names ending with .rst or .md, without line numbers or severity",
+          "regexp": "^(.*\\.(?:rst|md)):None: : Spell check: (.*)$",
+          "file": 1,
+          "message": 2
+        }
+      ]
+    }
+  ]
+}

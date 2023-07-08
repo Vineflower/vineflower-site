@@ -1,0 +1,47 @@
+# Making changes? https://github.com/nektos/act may help you test locally
+
+name: "Publish main branch"
+
+# TODO: Support multiple versions in parallel
+on:
+  repository_dispatch:
+    types: [rebuild-docs]
+  push:
+    branches:
+    - "master"
+    - "main/*"
+    - "main"
+
+concurrency:
+  group: "${{ github.workflow }}"
+  cancel-in-progress: true
+
+jobs:
+  build:
+    uses: "./.github/workflows/build-artifact.yaml"
+  publish:
+    needs: "build"
+    runs-on: "ubuntu-latest"
+
+    permissions:
+      pages: "write"
+      id-token: "write"
+    environment:
+      name: "github-pages"
+      url: "${{ steps.deployment.outputs.page_url }}"
+
+    steps:
+    - name: "artifact / restore"
+      uses: "actions/download-artifact@v3"
+      with:
+        name: "docs-html"
+        path: "build/html"
+    - name: "artifact / repackage"
+      uses: "actions/upload-pages-artifact@v1"
+      with:
+        path: "build/html"
+    - name: "deploy / pages"
+      id: "deployment"
+      uses: "actions/deploy-pages@v2"
+
+

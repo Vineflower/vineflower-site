@@ -1,0 +1,29 @@
+# Making changes? https://github.com/nektos/act may help you test locally
+
+name: "Build PR to Artifact"
+
+on:
+  pull_request:
+
+concurrency:
+  group: "${{ github.workflow }}-${{ github.event.number || github.ref }}"
+  cancel-in-progress: true
+
+jobs:
+  build:
+    uses: ./.github/workflows/build-artifact.yaml
+  publish-pr-number:
+    runs-on: "ubuntu-latest"
+    steps:
+    - name: "pr number / save"
+      if: "${{ always() }}"
+      run: "echo ${{ github.event.number }} > ./pr-num.txt"
+    - name: "pr number / publish"
+      if: "${{ always() }}"
+      uses: "actions/upload-artifact@v3"
+      with:
+        name: "pr-num"
+        path: "./pr-num.txt"
+        retention-days: 1
+      
+

@@ -1,0 +1,8 @@
+.highlight button.copybtn {
+  transition: all 0.3s;
+  border-style: none;
+}
+
+.highlight button.copybtn:hover {
+  color: var(--color-brand-content);
+}

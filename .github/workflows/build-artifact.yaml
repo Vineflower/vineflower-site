@@ -1,0 +1,35 @@
+name: "Build project to artifact"
+
+on:
+ workflow_call:
+
+env:
+  PYTHON_VERSION: "3.11"
+
+jobs:
+  build-docs:
+    runs-on: "ubuntu-latest"
+    steps:
+    - uses: "actions/checkout@v3"
+    - name: "setup python ${{ env.PYTHON_VERSION }}"
+      uses: "actions/setup-python@v4"
+      with:
+        python-version: "${{ env.PYTHON_VERSION }}"
+        cache: "pipenv"
+    - name: "setup python / install pipenv"
+      run: "pip install pipenv"
+    - name: "setup python / dependencies"
+      run: "pipenv install"
+    - uses: "ammaraskar/sphinx-problem-matcher@master"
+    - name: "build docs"
+      env:
+        SPHINX_GITHUB_CHANGELOG_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        pipenv run make html
+    - name: "store output"
+      uses: "actions/upload-artifact@v3"
+      with:
+        name: "docs-html"
+        path: "build/html/"
+        retention-days: 1
+
