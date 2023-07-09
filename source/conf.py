@@ -36,7 +36,7 @@ if 'GITHUB_REF' in os.environ:
     ref = os.environ['GITHUB_REF']
     if ref.startswith("refs/pull/"):
         pr_number = ref[len("refs/pull/"):-len("/merge")]
-        rst_prolog += f"""
+        rst_prolog = f"""
 .. caution::
 
     This version of the Vineflower site has been built as a preview of pull request :github:`vineflower-site#{pr_number}`, and has not been reviewed.
@@ -108,23 +108,24 @@ html_static_path = ['_static']
 html_css_files = ["button/button.css"]
 
 html_theme_options = {
-    #'light_css_variables': {
-    #    "color-brand-primary": "#2f2850",
-    #    "color-brand-content": "#6355aa",
-    #},
-    #'dark_css_variables': {
-    #    "color-brand-primary": "#b597d3",
-    #    "color-brand-content": "#7767c9",
-    #},
+    "light_logo": "logo-light.png",
+    "dark_logo": "logo-dark.png",
+    'light_css_variables': {
+        "color-brand-primary": "#0F1F35",
+        "color-brand-content": "#C24DFF",
+    },
+    'dark_css_variables': {
+        "color-brand-primary": "#B8FF5C",
+        "color-brand-content": "#ABA9FF",
+    },
+    'sidebar_hide_name': True
 }
 
 html_title = f'Vineflower (v{release})'
 html_show_sourcelink = False
 html_copy_source = False
 
-# TODO: add these once a logo is chosen
-# html_favicon = '_static/favicon.ico'
-# html_logo = '_static/logo.png'
+html_favicon = '_static/favicon.ico'
 
 # sphinx-github-role
 github_default_org_project = ('Vineflower', 'vineflower')
