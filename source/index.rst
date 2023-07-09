@@ -1,6 +1,6 @@
-=========
+==========
 Vineflower
-=========
+==========
 
 Modern Java decompiler aiming to be as accurate as possible, with an emphasis on output quality. Fork of the Fernflower decompiler.
 
