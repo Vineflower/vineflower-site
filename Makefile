@@ -19,7 +19,7 @@ check: Makefile
 	@$(RSTCHECK) -r $(SOURCEDIR)
 
 livehtml: Makefile
-	sphinx-autobuild --re-ignore _build -b html "$(SOURCEDIR)" "$(BUILDDIR)/html" $(SPHINXOPTS)
+	sphinx-autobuild --re-ignore _build -b dirhtml "$(SOURCEDIR)" "$(BUILDDIR)/dirhtml" $(SPHINXOPTS)
 
 # Catch-all target: route all unknown targets to Sphinx using the new
 # "make mode" option.  $(O) is meant as a shortcut for $(SPHINXOPTS).

@@ -36,7 +36,7 @@ jobs:
         workflow: "${{ github.event.workflow_run.workflow_id }}"
         run_id: "${{ github.event.workflow_run.id }}"
         name: "docs-html"
-        path: "build/html"
+        path: "build/dirhtml"
     - name: "generate data blob"
       id: "data"
       uses: "actions/github-script@v6"
@@ -44,7 +44,7 @@ jobs:
         script: |
           let fs = require("fs/promises");
 
-          let dirPromise = fs.mkdir('build/html/', {recursive: true});
+          let dirPromise = fs.mkdir('build/dirhtml/', {recursive: true});
           let prNum = (await fs.readFile('pr-num.txt', {encoding: 'UTF-8'})).trim();
           let time = new Date().toISOString();
 
@@ -62,7 +62,7 @@ jobs:
       uses: "JamesIves/github-pages-deploy-action@v4.4.2"
       with:
         branch: "main"
-        folder: "build/html"
+        folder: "build/dirhtml"
         ssh-key: "${{ secrets.SITE_PREVIEW_DEPLOY_KEY }}"
         repository-name: "Vineflower/vineflower-site-previews"
         target-folder: "pull/${{ fromJSON(steps.data.outputs.result).pr }}"
