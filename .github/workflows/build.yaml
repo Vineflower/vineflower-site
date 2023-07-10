@@ -35,11 +35,11 @@ jobs:
       uses: "actions/download-artifact@v3"
       with:
         name: "docs-html"
-        path: "build/html"
+        path: "build/dirhtml"
     - name: "artifact / repackage"
       uses: "actions/upload-pages-artifact@v1"
       with:
-        path: "build/html"
+        path: "build/dirhtml"
     - name: "deploy / pages"
       id: "deployment"
       uses: "actions/deploy-pages@v2"

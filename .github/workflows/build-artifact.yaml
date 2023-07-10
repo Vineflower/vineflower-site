@@ -25,11 +25,11 @@ jobs:
       env:
         SPHINX_GITHUB_CHANGELOG_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
-        pipenv run make html
+        pipenv run make dirhtml
     - name: "store output"
       uses: "actions/upload-artifact@v3"
       with:
         name: "docs-html"
-        path: "build/html/"
+        path: "build/dirhtml/"
         retention-days: 1
 
