@@ -26,4 +26,4 @@ To get in touch for queries, please check out the socials_ page.
    contributing
    version-history
 
-.. _socials: socials.html
+.. _socials: socials
