@@ -32,6 +32,7 @@ release = '1.9.2'
 if release.endswith('-SNAPSHOT'):
     tags.add('draft')
 
+html_baseurl = "https://vineflower.org/"
 if 'GITHUB_REF' in os.environ:
     ref = os.environ['GITHUB_REF']
     if ref.startswith("refs/pull/"):
@@ -43,8 +44,7 @@ if 'GITHUB_REF' in os.environ:
 
     Please consult the pull request to view any discussion and existing reviews.
 """
-    else:
-        html_baseurl = "https://vineflower.org/"
+        html_baseurl = f"https://vineflower.github.io/vineflower-site-previews/pull/{pr_number}/"
 
 # -- General configuration ---------------------------------------------------
 
@@ -55,6 +55,7 @@ sys.path.append(os.path.abspath("./_ext"))
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
+  'ablog',
   'myst_parser',
   'sphinx_copybutton',
   'sphinx_design',
@@ -62,7 +63,8 @@ extensions = [
   'sphinx_github_role',
   'sphinx_substitution_extensions',
   'sphinxcontrib.spelling',
-  'vineflower_site_extensions'
+  'vineflower_site_extensions',
+  'sphinx.ext.intersphinx'
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -82,24 +84,13 @@ language = 'en'
 pygments_style = 'friendly'
 pygments_dark_style = 'dracula'
 
-myst_enable_extensions=[
-  "colon_fence",
-  "deflist",
-  "fieldlist",
-  "dollarmath",
-  "html_admonition",
-  "replacements",
-  "smartquotes",
-  "tasklist"
-]
-
 
 # -- Options for HTML output -------------------------------------------------
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-html_theme = 'furo'
+html_theme = 'vineflower_theme'
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
@@ -126,6 +117,23 @@ html_show_sourcelink = False
 html_copy_source = False
 
 html_favicon = '_static/favicon.ico'
+
+# ablog
+blog_title = 'Vineflower News'
+blog_baseurl = html_baseurl + 'news/'
+
+# myst_parser
+myst_enable_extensions=[
+  "colon_fence",
+  "deflist",
+  "fieldlist",
+  "dollarmath",
+  "html_admonition",
+  "replacements",
+  "smartquotes",
+  "tasklist"
+]
+myst_update_mathjax = False
 
 # sphinx-github-role
 github_default_org_project = ('Vineflower', 'vineflower')
