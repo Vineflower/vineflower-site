@@ -1,0 +1,9 @@
+{% extends "furo/page.html" %}
+{% block content %}
+{{ super() }}
+  {% if pagename in ablog %}
+<div class="section ablog__blog_comments">
+    {% include "ablog/postnavy.html" %}
+</div>
+  {% endif %}
+{% endblock %}

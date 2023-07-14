@@ -111,6 +111,19 @@ html_theme_options = {
     },
     'sidebar_hide_name': True
 }
+html_sidebars = {
+    '**': [
+        'sidebar/brand.html',
+        'sidebar/search.html',
+        'sidebar/scroll-start.html',
+        'ablog/postcard.html',
+        'sidebar/navigation.html',
+        'ablog/archives.html',
+        'sidebar/ethical-ads.html',
+        'sidebar/scroll-end.html',
+        'sidebar/variant-selector.html'
+    ]
+}
 
 html_title = f'Vineflower (v{release})'
 html_show_sourcelink = False
@@ -120,7 +133,13 @@ html_favicon = '_static/favicon.ico'
 
 # ablog
 blog_title = 'Vineflower News'
-blog_baseurl = html_baseurl + 'news/'
+blog_baseurl = html_baseurl
+blog_path = 'news'
+blog_languages = {
+    'en': ('English', None)
+}
+blog_default_language = 'en'
+blog_post_pattern = 'news/*.md'
 
 # myst_parser
 myst_enable_extensions=[
