@@ -54,7 +54,7 @@ jobs:
           };
 
           await dirPromise;
-          await fs.writeFile('build/html/_preview_data.json', JSON.stringify(data));
+          await fs.writeFile('build/dirhtml/_preview_data.json', JSON.stringify(data));
 
           return data
     - name: "publish to pages"
