@@ -22,6 +22,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+import os.path
 import re
 
 from sphinx.application import Sphinx
@@ -31,6 +32,7 @@ from docutils.parsers.rst import nodes
 def setup(app: Sphinx):
     app.add_role("mojira", mojira_role)
     app.add_role("java", highlight_role("java"))
+    app.add_html_theme("vineflower_theme", os.path.join(os.path.abspath(os.path.dirname(__file__)), '..', '..', '..', 'vineflower_theme'))
 
 
 _issue_regex = re.compile(r'[A-Z]+-[1-9][0-9]*')
