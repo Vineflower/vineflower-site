@@ -3,7 +3,6 @@ Socials
 
 Vineflower's social spaces consists of a Discord guild, Matrix room, and IRC channel, all bridged together as one. Before you join, there are some rules to be read:
 
-|
 1. No hate speech, bigotry, NSFW content, spam, or otherwise unwanted content.
 2. Keep on topic if there is on-topic discussion, and don't import drama from other communities.
 3. Keep discussions polite and respectful, and avoid meaningless arguments.

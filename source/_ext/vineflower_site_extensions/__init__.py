@@ -32,7 +32,6 @@ def setup(app: Sphinx):
     app.add_role("mojira", mojira_role)
     app.add_role("java", highlight_role("java"))
 
-
 _issue_regex = re.compile(r'[A-Z]+-[1-9][0-9]*')
 _mojira_url = "https://bugs.mojang.com/browse/"
 
