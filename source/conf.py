@@ -27,7 +27,7 @@ author = 'Vineflower team'
 
 # The short X.Y versions
 # The full api version, including alpha/beta/rc tags
-release = '1.9.1'
+release = '1.9.2'
 
 if release.endswith('-SNAPSHOT'):
     tags.add('draft')
