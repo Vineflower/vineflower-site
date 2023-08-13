@@ -22,6 +22,7 @@ To get in touch for queries, please check out the socials_ page.
    :maxdepth: 2
    :hidden:
 
+   usage
    socials
    contributing
    version-history

@@ -1,0 +1,83 @@
+plugins {
+    id 'java-library'
+    id 'com.diffplug.spotless' version '6.20.0'
+    id 'net.kyori.indra.licenser.spotless' version '3.1.2'
+}
+
+def javaTarget = 17
+java {
+    def targetVersion = JavaVersion.toVersion(javaTarget)
+    sourceCompatibility = targetVersion
+    targetCompatibility = targetVersion
+    if (!JavaVersion.current().isCompatibleWith(targetVersion)) {
+        toolchain { languageVersion = JavaLanguageVersion.of(javaTarget) }
+    }
+}
+
+configurations {
+    vineflower
+    implementation {
+        extendsFrom vineflower
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.compilerArgs << '-Xlint:all' << '-Xlint:-processing'
+    options.release = javaTarget
+    options.encoding = 'utf-8'
+}
+
+dependencies {
+    implementation 'info.picocli:picocli:4.7.4'
+    implementation 'io.pebbletemplates:pebble:3.2.1'
+    implementation 'org.slf4j:slf4j-api:2.0.7'
+    implementation 'org.tinylog:tinylog-api:2.6.2'
+    runtimeOnly 'org.tinylog:tinylog-impl:2.6.2'
+    runtimeOnly 'org.tinylog:slf4j-tinylog:2.6.2'
+    vineflower "org.vineflower:vineflower:$vineflowerVersion"
+}
+
+indraSpotlessLicenser {
+    licenseHeaderFile file('LICENSE')
+}
+
+spotless {
+    ratchetFrom 'origin/main'
+    java {
+        endWithNewline()
+        trimTrailingWhitespace()
+        indentWithSpaces(4)
+    }
+}
+
+
+abstract class GenerateDocumentation extends JavaExec {
+
+    @Option(option = "target-dir", description = "The directory to generate files to")
+    @Internal
+    abstract Property<String> getTargetDirName()
+
+    @OutputDirectory
+    abstract DirectoryProperty getDestinationDir() // set from target dir name
+
+    @Inject
+    protected abstract ProjectLayout getLayout();
+
+    GenerateDocumentation() {
+        this.getDestinationDir().convention(this.getLayout().dir(this.targetDirName.map { new File(it) }))
+    }
+
+    @Override
+    void exec() {
+        args '--target', this.getDestinationDir().get().asFile.getAbsolutePath()
+        super.exec()
+    }
+
+
+}
+
+tasks.register('generate', GenerateDocumentation) {
+    group = "vineflower"
+    classpath = files(sourceSets.main.output, configurations.runtimeClasspath)
+    mainClass = 'org.vineflower.docgen.DocGenerator'
+}

@@ -14,3 +14,12 @@
 
 # Python
 __pycache__/
+
+# docgen
+source/generated/
+
+docgen/.gradle
+docgen/bin/
+docgen/.classpath
+docgen/.settings
+docgen/build
