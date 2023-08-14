@@ -8,6 +8,8 @@ on:
 
 jobs:
   check-docgen:
+    # Only run on PRs if the source branch is on someone else's repo
+    if: "${{ github.event_name != 'pull_request' || github.repository != github.event.pull_request.head.repo.full_name }}"
     uses: ./.github/workflows/run-docgen.yaml
     with:
         gradle_arguments: "build"
