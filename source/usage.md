@@ -41,5 +41,4 @@ Only members whose paths start with `prefix` will be emitted
 % The rest can be automatically inferred from IFernflowerPreferences
 
 ```{include} generated/usage.md
-Generated content not present -- have you not run the generator with `pushd docgen/; ./gradlew generate --target-dir ../source/generated; popd`?
 ```
