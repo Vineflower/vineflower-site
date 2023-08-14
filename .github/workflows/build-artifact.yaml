@@ -9,7 +9,7 @@ env:
 jobs:
   get-vineflower-version:
     outputs:
-        version: ${{ steps.version.outputs.result }}
+        version: ${{ steps.version.outputs.version }}
     runs-on: "ubuntu-latest"
     steps:
         - uses: "actions/checkout@v3"
