@@ -22,7 +22,7 @@ jobs:
     uses: "./.github/workflows/run-docgen.yaml"
     with:
         gradle_arguments: "-PvineflowerVersion=${{ needs.get-vineflower-version.outputs.version }} generate --target-dir build/gen-out"
-        artifact_pattern: "build/gen-out/"
+        artifact_pattern: "docgen/build/gen-out/"
   build-docs:
     runs-on: "ubuntu-latest"
     steps:

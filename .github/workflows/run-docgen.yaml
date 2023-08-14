@@ -35,6 +35,7 @@ jobs:
               uses: gradle/gradle-build-action@v2
               with:
                 cache-read-only: "${{ github.event_name == 'pull_request' }}"
+                build-root-directory: docgen/
                 arguments: ${{ inputs.gradle_arguments }}
             - name: "upload artifacts"
               uses: actions/upload-artifact@v3
