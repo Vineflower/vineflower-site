@@ -60,6 +60,7 @@ extensions = [
   'sphinx_design',
   'sphinx_github_changelog',
   'sphinx_github_role',
+  'sphinx_reredirects',
   'sphinx_substitution_extensions',
   'sphinxcontrib.spelling',
   'vineflower_site_extensions'
@@ -129,6 +130,12 @@ html_favicon = '_static/favicon.ico'
 
 # sphinx-github-role
 github_default_org_project = ('Vineflower', 'vineflower')
+
+# sphinx-reredirects
+redirects = {
+    'socials/discord': 'https://discord.com/invite/MsBAZamXGF',
+    'socials/matrix': 'https://matrix.to/#/#vineflower:dfsek.com'
+}
 
 # sphinxcontrib-spelling
 spelling_word_list_filename='../.config/spelling_wordlist.txt'
