@@ -28,9 +28,9 @@ tasks.withType(JavaCompile).configureEach {
 }
 
 dependencies {
-    implementation 'info.picocli:picocli:4.7.4'
+    implementation 'info.picocli:picocli:4.7.5'
     implementation 'io.pebbletemplates:pebble:3.2.1'
-    implementation 'org.slf4j:slf4j-api:2.0.7'
+    implementation 'org.slf4j:slf4j-api:2.0.9'
     implementation 'org.tinylog:tinylog-api:2.6.2'
     runtimeOnly 'org.tinylog:tinylog-impl:2.6.2'
     runtimeOnly 'org.tinylog:slf4j-tinylog:2.6.2'
