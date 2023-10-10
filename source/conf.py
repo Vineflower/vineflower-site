@@ -27,9 +27,8 @@ author = 'Vineflower team'
 
 version_file = Path(__file__).parent.parent / 'vineflower-version'
 
-# The short X.Y versions
-# The full api version, including alpha/beta/rc tags
-release = '1.9.3'
+with open(version_file, 'rt', encoding='utf-8') as fp:
+    release = fp.readline().strip()
 
 rst_prolog = f"""
 .. |version| replace:: {release}
