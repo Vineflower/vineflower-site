@@ -3,8 +3,7 @@ name: "Build & Check Docgen"
 
 on:
   push:
-    branches: ["**"]
-    branches-ignore: ["main"]
+    branches: ["**", "!main"]
     tags-ignore: ["**"]
     paths: ["docgen/**", "vineflower-version"]
   pull_request:
