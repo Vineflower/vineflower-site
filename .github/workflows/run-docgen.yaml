@@ -1,0 +1,46 @@
+name: "build docgen"
+
+on:
+    workflow_call:
+        inputs:
+            gradle_arguments:
+                type: string
+                description: The arguments to pass to Gradle
+                required: true
+            artifact_pattern:
+                type: string
+                description: The glob pattern for artifacts to upload
+                required: true
+
+env:
+    JAVA_VERSION: 17
+
+permissions:
+    contents: read
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - name: "setup / checkout"
+              uses: actions/checkout@v4
+              with:
+                fetch-depth: 0
+            - name: "setup / java ${{ env.JAVA_VERSION }}"
+              uses: actions/setup-java@v3
+              with:
+                distribution: temurin
+                java-version: ${{ env.JAVA_VERSION }}
+            - name: "build / run gradle for generators"
+              uses: gradle/gradle-build-action@v2
+              with:
+                cache-read-only: "${{ github.event_name == 'pull_request' }}"
+                build-root-directory: docgen/
+                arguments: ${{ inputs.gradle_arguments }}
+            - name: "upload artifacts"
+              uses: actions/upload-artifact@v3
+              with:
+                name: build-output
+                path: ${{ inputs.artifact_pattern }}
+                if-no-files-found: ignore
+                retention-days: 1

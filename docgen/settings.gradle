@@ -1,0 +1,26 @@
+import org.gradle.api.initialization.resolve.RepositoriesMode
+
+pluginManagement {
+    repositories {
+        mavenCentral()
+        gradlePluginPortal()
+    }
+}
+
+plugins {
+    id 'org.gradle.toolchains.foojay-resolver-convention' version '0.6.0'
+}
+
+rootProject.name = "docgen"
+
+dependencyResolutionManagement {
+    repositoriesMode = RepositoriesMode.FAIL_ON_PROJECT_REPOS
+    repositories {
+        mavenCentral()
+        maven {
+            name = "sonatypeSnapshots"
+            url = "https://s01.oss.sonatype.org/content/repositories/snapshots/"
+            mavenContent { snapshotsOnly() }
+        }
+    }
+}

@@ -1,0 +1,19 @@
+{# @pebvariable name="args" type="java.util.List<org.vineflower.docgen.UsageGenerator.ArgumentInfo>" #}
+{# @pebvariable name="hasLegacyShortNames" type="boolean" #}
+{% for arg in args %}
+```{option} {% if hasLegacyShortNames %}
+--{{ arg.argumentName }}{% if arg.type is not null %}={{ "{" }}{{ arg.type }}{{ "}" }}{% endif %}, {%if arg.legacyShortName is not null %}-{{ arg.legacyShortName }}{% if arg.type is not null %}={{ "{" }}{{ arg.type }}{{ "}" }}{% endif %}{% endif %}
+{% else %}
+-{{ arg.argumentName }}={{ "{" }}value{{ "}" }}
+{% endif %}
+
+{{ arg.description }}
+
+{%if arg.defaultValue %}
+
+**Default**: `{{ arg.defaultValue }}`
+{% endif %}
+
+```
+
+{% endfor %}

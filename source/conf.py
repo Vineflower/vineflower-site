@@ -25,6 +25,8 @@ project = 'Vineflower'
 copyright = '2023 Vineflower Team and Contributors'
 author = 'Vineflower team'
 
+version_file = Path(__file__).parent.parent / 'vineflower-version'
+
 # The short X.Y versions
 # The full api version, including alpha/beta/rc tags
 release = '1.9.3'
@@ -80,7 +82,7 @@ extensions = [
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
 # This pattern also affects html_static_path and html_extra_path.
-exclude_patterns = ['_ext']
+exclude_patterns = ['_ext', 'generated']
 
 
 # General style
@@ -90,6 +92,8 @@ language = 'en'
 
 pygments_style = 'friendly'
 pygments_dark_style = 'dracula'
+
+option_emphasise_placeholders = True
 
 myst_enable_extensions=[
   "colon_fence",

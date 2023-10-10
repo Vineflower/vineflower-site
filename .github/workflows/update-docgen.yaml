@@ -1,0 +1,54 @@
+on:
+  push:
+    paths:
+    - "docgen/**"
+    - vineflower-version
+
+name: "Update Docgen"
+
+jobs:
+  get-vineflower-version:
+    outputs:
+      version: ${{ steps.version.outputs.version }}
+    runs-on: "ubuntu-latest"
+    steps:
+        - uses: "actions/checkout@v4"
+        - name: "write version to outputs"
+          id: "version"
+          run: |
+            echo "version=$(cat vineflower-version)" >> $GITHUB_OUTPUT
+  run-docgen:
+    needs: get-vineflower-version
+    uses: "./.github/workflows/run-docgen.yaml"
+    with:
+      gradle_arguments: "-PvineflowerVersion=${{ needs.get-vineflower-version.outputs.version }} generate --target-dir build/gen-out"
+      artifact_pattern: "docgen/build/gen-out/"
+  commit:
+    needs: run-docgen
+    runs-on: ubuntu-latest
+    steps:
+      - id: "token"
+        name: "setup / fetch access token"
+        uses: "tibdex/github-app-token@v2"
+        with:
+          app_id: "${{ secrets.SITE_WORKER_ID }}"
+          private_key: "${{ secrets.SITE_WORKER_PRIVATE_KEY }}"
+          installation_retrieval_mode: "repository"
+          installation_retrieval_payload: "Vineflower/vineflower-site"
+      - name: "setup / checkout"
+        uses: "actions/checkout@v4"
+        with:
+          token: "${{ steps.token.outputs.token }}"
+      - name: "extract generated artifact"
+        uses: "actions/download-artifact@v3"
+        with:
+          name: "build-output"
+          path: source/generated
+      - name: "commit and update generated content"
+        run: |
+          # author ident via https://github.com/actions/checkout#push-a-commit-using-the-built-in-token
+          git config user.email '147545768+vineflower-site-worker[bot]@users.noreply.github.com' &&
+          git config user.name 'vineflower-site-worker[bot]'
+          git add -f source/generated
+          git commit -m 'update generated content' || exit 0
+          git push origin
