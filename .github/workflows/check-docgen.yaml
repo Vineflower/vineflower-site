@@ -1,9 +1,12 @@
+# Check that docgen builds properly
 name: "Build & Check Docgen"
 
 on:
   push:
     branches: ["**"]
+    branches-ignore: ["main"]
     tags-ignore: ["**"]
+    paths: ["docgen/**", "vineflower-version"]
   pull_request:
 
 jobs:
