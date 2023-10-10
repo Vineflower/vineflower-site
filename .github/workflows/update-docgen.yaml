@@ -26,10 +26,19 @@ jobs:
   commit:
     needs: run-docgen
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
     steps:
-      - uses: "actions/checkout@v4"
+      - id: "token"
+        name: "setup / fetch access token"
+        uses: "tibdex/github-app-token@v2"
+        with:
+          app_id: "${{ secrets.SITE_WORKER_ID }}"
+          private_key: "${{ secrets.SITE_WORKER_PRIVATE_KEY }}"
+          installation_retrieval_mode: "repository"
+          installation_retrieval_payload: "Vineflower/vineflower-site"
+      - name: "setup / checkout"
+        uses: "actions/checkout@v4"
+        with:
+          token: "${{ steps.token.outputs.token }}"
       - name: "extract generated artifact"
         uses: "actions/download-artifact@v3"
         with:
@@ -38,11 +47,8 @@ jobs:
       - name: "commit and update generated content"
         run: |
           # author ident via https://github.com/actions/checkout#push-a-commit-using-the-built-in-token
-          git config user.name github-actions
-          git config user.email github-actions@github.com
+          git config user.email '147545768+vineflower-site-worker[bot]@users.noreply.github.com' &&
+          git config user.name 'vineflower-site-worker[bot]'
           git add -f source/generated
           git commit -m 'update generated content' || exit 0
           git push origin
-
-
-
