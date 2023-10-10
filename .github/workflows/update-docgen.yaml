@@ -1,17 +1,15 @@
 on:
-    push:
-        branches:
-            - "main"
-        paths:
-            - "docgen/**"
-            - vineflower-version
+  push:
+    paths:
+    - "docgen/**"
+    - vineflower-version
 
 name: "Update Docgen"
 
 jobs:
   get-vineflower-version:
     outputs:
-        version: ${{ steps.version.outputs.version }}
+      version: ${{ steps.version.outputs.version }}
     runs-on: "ubuntu-latest"
     steps:
         - uses: "actions/checkout@v3"
@@ -23,25 +21,25 @@ jobs:
     needs: get-vineflower-version
     uses: "./.github/workflows/run-docgen.yaml"
     with:
-        gradle_arguments: "-PvineflowerVersion=${{ needs.get-vineflower-version.outputs.version }} generate --target-dir build/gen-out"
-        artifact_pattern: "docgen/build/gen-out/"
+      gradle_arguments: "-PvineflowerVersion=${{ needs.get-vineflower-version.outputs.version }} generate --target-dir build/gen-out"
+      artifact_pattern: "docgen/build/gen-out/"
   commit:
     needs: run-docgen
     runs-on: ubuntu-latest
     permissions:
-        contents: write
+      contents: write
     steps:
-        - uses: "actions/checkout@v3"
-        - name: "extract generated artifact"
-          uses: "actions/download-artifact@v3"
-          with:
-            name: "build-output"
-            path: source/generated
-        - name: "commit and update generated content"
-          run: |
-            git add -f source/generated
-            git commit -m 'update generated content' || exit 0
-            git push origin
+      - uses: "actions/checkout@v3"
+      - name: "extract generated artifact"
+        uses: "actions/download-artifact@v3"
+        with:
+          name: "build-output"
+          path: source/generated
+      - name: "commit and update generated content"
+        run: |
+          git add -f source/generated
+          git commit -m 'update generated content' || exit 0
+          git push origin
 
 
 
