@@ -29,9 +29,15 @@ version_file = Path(__file__).parent.parent / 'vineflower-version'
 
 # The short X.Y versions
 # The full api version, including alpha/beta/rc tags
+release = '1.9.3'
 
-with open(version_file, 'rt', encoding='utf-8') as fp:
-    release = fp.readline().strip()
+rst_prolog = f"""
+.. |version| replace:: {release}
+"""
+
+myst_substitutions = {
+    'version': release
+}
 
 if release.endswith('-SNAPSHOT'):
     tags.add('draft')
@@ -40,7 +46,7 @@ if 'GITHUB_REF' in os.environ:
     ref = os.environ['GITHUB_REF']
     if ref.startswith("refs/pull/"):
         pr_number = ref[len("refs/pull/"):-len("/merge")]
-        rst_prolog = f"""
+        rst_prolog += f"""
 .. caution::
 
     This version of the Vineflower site has been built as a preview of pull request :github:`vineflower-site#{pr_number}`, and has not been reviewed.
@@ -64,6 +70,7 @@ extensions = [
   'sphinx_design',
   'sphinx_github_changelog',
   'sphinx_github_role',
+  'sphinx_reredirects',
   'sphinx_substitution_extensions',
   'sphinxcontrib.spelling',
   'vineflower_site_extensions'
@@ -135,6 +142,12 @@ html_favicon = '_static/favicon.ico'
 
 # sphinx-github-role
 github_default_org_project = ('Vineflower', 'vineflower')
+
+# sphinx-reredirects
+redirects = {
+    'socials/discord': 'https://discord.com/invite/MsBAZamXGF',
+    'socials/matrix': 'https://matrix.to/#/#vineflower:dfsek.com'
+}
 
 # sphinxcontrib-spelling
 spelling_word_list_filename='../.config/spelling_wordlist.txt'
