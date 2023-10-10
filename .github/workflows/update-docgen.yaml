@@ -12,7 +12,7 @@ jobs:
       version: ${{ steps.version.outputs.version }}
     runs-on: "ubuntu-latest"
     steps:
-        - uses: "actions/checkout@v3"
+        - uses: "actions/checkout@v4"
         - name: "write version to outputs"
           id: "version"
           run: |
@@ -29,7 +29,7 @@ jobs:
     permissions:
       contents: write
     steps:
-      - uses: "actions/checkout@v3"
+      - uses: "actions/checkout@v4"
       - name: "extract generated artifact"
         uses: "actions/download-artifact@v3"
         with:
@@ -37,6 +37,9 @@ jobs:
           path: source/generated
       - name: "commit and update generated content"
         run: |
+          # author ident via https://github.com/actions/checkout#push-a-commit-using-the-built-in-token
+          git config user.name github-actions
+          git config user.email github-actions@github.com
           git add -f source/generated
           git commit -m 'update generated content' || exit 0
           git push origin
