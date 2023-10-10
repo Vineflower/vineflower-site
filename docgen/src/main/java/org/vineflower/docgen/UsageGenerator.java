@@ -49,7 +49,7 @@ public class UsageGenerator {
     private static final Logger LOGGER = Logging.logger();
     private static final int PSF_MASK = Modifier.PUBLIC | Modifier.STATIC | Modifier.FINAL;
     private static final String ANNOTATION_PREFIX = "org.jetbrains.java.decompiler.main.extern.IFernflowerPreferences$";
-    private static boolean HAS_LEGACY_SHORT_NAME;
+    private static final boolean HAS_LEGACY_SHORT_NAME;
 
     static {
         boolean hasShortName = false;
