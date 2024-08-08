@@ -30,7 +30,7 @@ These instructions assume you are working from a terminal, either on Windows or 
         1. Clone the repository from `GitHub <https://github.com/Vineflower/vineflower-site>`_ and switch into the directory
         2. Install pipenv (if not present): ``$ apt install pipenv``
         3. Install the dependencies: ``pipenv install``
-        4. Generate the documentation contents from the current Vineflower release: `pushd docgen/ && ./gradlew generate --target-dir ../source/generated/ && popd`
+        4. Generate the documentation contents from the current Vineflower release: ``pushd docgen/ && ./gradlew generate --target-dir ../source/generated/ && popd``
         5. Build the documentation: ``pipenv run make livehtml``
         6. Open a browser to ``https://localhost:8000`` to view the just-built site. Pages will auto-refresh when changes are made.
 
@@ -39,7 +39,7 @@ These instructions assume you are working from a terminal, either on Windows or 
         1. Clone the repository from `GitHub <https://github.com/Vineflower/vineflower-site/>`_ and switch into the directory
         2. Install pipenv (if not present): ``pip install pipenv```
         3. Install the dependencies: ``pipenv install``
-        4. Generate the documentation contents from the current Vineflower release: `cd docgen/; ./gradlew generate --target-dir ../source/generated/; cd -`
+        4. Generate the documentation contents from the current Vineflower release: ``cd docgen/; ./gradlew generate --target-dir ../source/generated/; cd -``
         5. Build the documentation: ``pipenv run ./make livehtml``
         6. Open a browser to ``https://localhost:8000`` to view the just-built site. Pages will auto-refresh when changes are made.
 
