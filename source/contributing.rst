@@ -52,7 +52,7 @@ Once you've written changes, they can be submitted for inclusion in the docs wit
 Style
 -----
 
-The Vineflowe site is primarily written in English. We attempt to mostly follow American spellings, though that can often be inconsistent. There is a basic spellchecker
+The Vineflower site is primarily written in English. We attempt to mostly follow American spellings, though that can often be inconsistent. There is a basic spellchecker
 that will be run on PRs, or which can be run locally with the ``pipenv run make spelling`` command. We also recommend using the LanguageTool VS Code extension for in-editor suggestions.
 For technical language that should always be accepted, custom words can be added in the :file:`.config/spelling_wordlist.txt` file. For one-off exceptions (such as project names),
 use the :samp:`:spelling:ignore:\`{word}\``
