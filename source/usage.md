@@ -1,10 +1,12 @@
-# Usage
+# Usage (Command Line)
 
-Vineflower can be run as a CLI tool.
+Vineflower can be run from the command line.
 
 ```shell
 java -jar vineflower.jar [args...] {in}+ [{out}]
 ```
+
+Vineflower also accepts arguments to change decompilation behavior.
 
 ## Arguments
 
@@ -28,7 +30,7 @@ The following three options control how decompiled output should be written. If 
   Prefer saving to a folder, potentially extracting an input archive.
 ```
 
-```{option} --legacy
+```{option} --legacy-saving
   Use legacy Fernflower save behavior.
 ```
 
@@ -39,6 +41,8 @@ Only members whose paths start with `prefix` will be emitted
 ```
 
 % The rest can be automatically inferred from IFernflowerPreferences
+
+The following values change the decompilation behavior itself.
 
 ```{include} generated/usage.md
 ```
