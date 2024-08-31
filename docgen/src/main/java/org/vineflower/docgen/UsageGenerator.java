@@ -41,101 +41,33 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
+
+import io.pebbletemplates.pebble.utils.Pair;
+import org.jetbrains.java.decompiler.api.DecompilerOption;
+import org.jetbrains.java.decompiler.api.plugin.Plugin;
+import org.jetbrains.java.decompiler.main.Init;
 import org.jetbrains.java.decompiler.main.extern.IFernflowerPreferences;
 import org.slf4j.Logger;
 import org.vineflower.docgen.util.Logging;
 
 public class UsageGenerator {
-    private static final Logger LOGGER = Logging.logger();
-    private static final int PSF_MASK = Modifier.PUBLIC | Modifier.STATIC | Modifier.FINAL;
-    private static final String ANNOTATION_PREFIX = "org.jetbrains.java.decompiler.main.extern.IFernflowerPreferences$";
-    private static final boolean HAS_LEGACY_SHORT_NAME;
-
-    static {
-        boolean hasShortName = false;
-        try {
-            Class.forName(ANNOTATION_PREFIX + "ShortName");
-            hasShortName = true;
-        } catch (final ClassNotFoundException ignored) {
-        }
-        HAS_LEGACY_SHORT_NAME = hasShortName;
-    }
-
-    record Problem(String argumentName, String message) {}
-
-    record ArgumentInfo(String argumentName, String friendlyName, String legacyShortName, String description, String defaultValue, String type) {
-        static ArgumentInfo fromField(final Field field, final Consumer<Problem> problemConsumer) {
-            final String argumentName;
-            try {
-                argumentName = (String) field.get(null);
-            } catch (IllegalAccessException e) {
-                problemConsumer.accept(new Problem(field.getName(), "could not read field value"));
-                return null;
-            }
-
-            String friendlyName = annotationValueOrNull(field,"Name");
-            if (friendlyName == null) {
-                problemConsumer.accept(new Problem(argumentName, "missing @Name annotation"));
-            }
-            String description = annotationValueOrNull(field,"Description");
-            if (description == null) {
-                problemConsumer.accept(new Problem(argumentName, "missing @Description annotation"));
-            }
-            String defaultValue = valueOfOrNull(IFernflowerPreferences.getDefaults().get(argumentName));
-            // 1.10+
-            String legacyShortName = annotationValueOrNull(field, "ShortName");
-            String type = annotationValueOrNull(field, "Type");
-
-            return new ArgumentInfo(argumentName, friendlyName, legacyShortName, description, defaultValue, type);
-        }
-    }
-
-
     public static boolean generate(final Path usageFile, final PebbleEngine engine) throws IOException {
-        final List<Problem> problems = new ArrayList<>();
-        final List<ArgumentInfo> info = Arrays.stream(IFernflowerPreferences.class.getFields())
-            .filter(UsageGenerator::isPublicStaticFinalString)
-            .filter(field -> field.isAnnotationPresent(IFernflowerPreferences.Name.class)) // basic sanity check
-            .map(f -> ArgumentInfo.fromField(f, problems::add))
-            .filter(Objects::nonNull)
-            .collect(Collectors.toList());
+        Init.init();
 
-        info.sort(Comparator.comparing(ArgumentInfo::argumentName));
-
-        if (!problems.isEmpty()) {
-            LOGGER.error("There were problems discovering information about argument usage:");
-            for (final var problem : problems) {
-                LOGGER.error("- '{}': {}", problem.argumentName(), problem.message());
-            }
-            return false;
-        }
+        List<Pair<String, List<DecompilerOption>>> options = DecompilerOption.getAllByPlugin()
+            .entrySet().stream()
+            .sorted(Comparator.comparing(entry -> entry.getKey() != null ? entry.getKey().id() : ""))
+            .map(entry -> {
+                String pluginName = entry.getKey() != null ? "Plugin: " + entry.getKey().id() : null;
+                List<DecompilerOption> pluginOptions = entry.getValue();
+                return new Pair<>(pluginName, pluginOptions);
+            })
+            .toList();
 
         final PebbleTemplate tpl = engine.getTemplate("usage.peb");
         try (final Writer writer = Files.newBufferedWriter(usageFile, StandardCharsets.UTF_8)) {
-            tpl.evaluate(writer, Map.of("args", info, "hasLegacyShortNames", HAS_LEGACY_SHORT_NAME));
+            tpl.evaluate(writer, Map.of("groups", options));
         }
         return true;
-    }
-
-    private static boolean isPublicStaticFinalString(final Field field) {
-        return String.class.equals(field.getType()) && (field.getModifiers() & PSF_MASK) == PSF_MASK;
-    }
-
-    private static String valueOfOrNull(final Object input) {
-        return input == null ? null : String.valueOf(input);
-    }
-
-    private static String annotationValueOrNull(final AnnotatedElement element, final String annotation) {
-        final String qualifiedName = ANNOTATION_PREFIX + annotation;
-        for (final Annotation a : element.getAnnotations()) {
-            if (a.annotationType().getName().equals(qualifiedName)) {
-                try {
-                    return (String) a.getClass().getMethod("value").invoke(a);
-                } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
-                    throw new RuntimeException("Failed to read value field from annotation " + a.annotationType().getName() + " on " + element, e);
-                }
-            }
-        }
-        return null;
     }
 }
