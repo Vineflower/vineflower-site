@@ -1,19 +1,25 @@
-{# @pebvariable name="args" type="java.util.List<org.vineflower.docgen.UsageGenerator.ArgumentInfo>" #}
-{# @pebvariable name="hasLegacyShortNames" type="boolean" #}
-{% for arg in args %}
-```{option} {% if hasLegacyShortNames %}
---{{ arg.argumentName }}{% if arg.type is not null %}={{ "{" }}{{ arg.type }}{{ "}" }}{% endif %}, {%if arg.legacyShortName is not null %}-{{ arg.legacyShortName }}{% if arg.type is not null %}={{ "{" }}{{ arg.type }}{{ "}" }}{% endif %}{% endif %}
+{# @pebvariable name="groups" type="java.util.List<io.pebbletemplates.pebble.utils.Pair<java.lang.String, java.util.List<org.jetbrains.java.decompiler.api.DecompilerOption>>>" #}
+{% for group in groups %}
+
+{% if group.left is not null %}
+---
+### {{ group.left }}
 {% else %}
--{{ arg.argumentName }}={{ "{" }}value{{ "}" }}
+### Base Decompiler Options
 {% endif %}
 
-{{ arg.description }}
+{% for option in group.right %}
+```{option} --{{ option.id }}={{ option.type }}
 
-{%if arg.defaultValue %}
+{# Escape $, MathJax uses it #}
+{{ option.description | replace({'$': '\$'}) }}
 
-**Default**: `{{ arg.defaultValue }}`
+{% if option.defaultValue %}
+**Default**: `{{ option.defaultValue }}`
 {% endif %}
 
 ```
+
+{% endfor %}
 
 {% endfor %}

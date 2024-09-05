@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 Vineflower team and contributors
+ * Copyright (c) 2023-2024 Vineflower team and contributors
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal

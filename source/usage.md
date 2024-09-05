@@ -40,7 +40,7 @@ It is possible to limit decompiled output to only a certain subset of the input 
 Only members whose paths start with `prefix` will be emitted
 ```
 
-% The rest can be automatically inferred from IFernflowerPreferences
+% The rest are collected by Vineflower's DecompilerOption record and its getAllByPlugin method
 
 The following values change the decompilation behavior itself.
 
