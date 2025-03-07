@@ -13,7 +13,7 @@ on:
                 required: true
 
 env:
-    JAVA_VERSION: 17
+    JAVA_VERSION: 21
 
 permissions:
     contents: read
@@ -29,7 +29,7 @@ jobs:
             - name: "setup / java ${{ env.JAVA_VERSION }}"
               uses: actions/setup-java@v4
               with:
-                distribution: temurin
+                distribution: "zulu"
                 java-version: ${{ env.JAVA_VERSION }}
             - name: "setup / gradle"
               uses: gradle/actions/setup-gradle@v4

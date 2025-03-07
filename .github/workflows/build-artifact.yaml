@@ -4,7 +4,7 @@ on:
  workflow_call:
 
 env:
-  PYTHON_VERSION: "3.11"
+  PYTHON_VERSION: "3.13"
 
 jobs:
   build-docs:
@@ -12,21 +12,21 @@ jobs:
     steps:
     - name: "setup / checkout"
       uses: "actions/checkout@v4"
+    - name: "setup / python / install poetry"
+      run: "pipx install poetry"
     - name: "setup / python ${{ env.PYTHON_VERSION }}"
       uses: "actions/setup-python@v5"
       with:
         python-version: "${{ env.PYTHON_VERSION }}"
-        cache: "pipenv"
-    - name: "setup / python / install pipenv"
-      run: "pip install pipenv"
+        cache: "poetry"
     - name: "setup / python / dependencies"
-      run: "pipenv install"
+      run: "poetry sync"
     - uses: "ammaraskar/sphinx-problem-matcher@master"
     - name: "build / docs"
       env:
         SPHINX_GITHUB_CHANGELOG_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
-        pipenv run make dirhtml
+        poetry run make dirhtml
     - name: "store output"
       uses: "actions/upload-artifact@v4"
       with:

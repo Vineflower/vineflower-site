@@ -20,7 +20,7 @@ Sphinx is a Python tool, so the steps to build this documentation will be famili
     For those wishing to make a simple contribution quickly, we provide a GitHub Codespaces configuration file for this repository
     allowing for quick setup with VS Code as an editor.
 
-Make sure `Git <https://git-scm.com>`_ and `Python <https://www.python.org>`_ 3.11 or newer are installed.
+Make sure `Git <https://git-scm.com>`_ and `Python <https://www.python.org>`_ 3.11 or newer are installed. The generator Java project targets Java 21, which Gradle will download if it is not currently installed.
 These instructions assume you are working from a terminal, either on Windows or Linux.
 
 .. tab-set::
@@ -28,19 +28,19 @@ These instructions assume you are working from a terminal, either on Windows or 
     .. tab-item:: Linux/macOS (POSIX)
 
         1. Clone the repository from `GitHub <https://github.com/Vineflower/vineflower-site>`_ and switch into the directory
-        2. Install pipenv (if not present): ``$ apt install pipenv``
-        3. Install the dependencies: ``pipenv install``
+        2. Install poetry (if not present): ``$ pipx install poetry``
+        3. Install the dependencies: ``poetry install``
         4. Generate the documentation contents from the current Vineflower release: ``pushd docgen/ && ./gradlew generate --target-dir ../source/generated/ && popd``
-        5. Build the documentation: ``pipenv run make livehtml``
+        5. Build the documentation: ``poetry run make livehtml``
         6. Open a browser to ``https://localhost:8000`` to view the just-built site. Pages will auto-refresh when changes are made.
 
     .. tab-item:: Windows (PowerShell)
 
         1. Clone the repository from `GitHub <https://github.com/Vineflower/vineflower-site/>`_ and switch into the directory
-        2. Install pipenv (if not present): ``pip install pipenv```
-        3. Install the dependencies: ``pipenv install``
+        2. Install poetry (if not present): ``pipx install poetry``
+        3. Install the dependencies: ``poetry install``
         4. Generate the documentation contents from the current Vineflower release: ``cd docgen/; ./gradlew generate --target-dir ../source/generated/; cd -``
-        5. Build the documentation: ``pipenv run ./make livehtml``
+        5. Build the documentation: ``poetry run ./make livehtml``
         6. Open a browser to ``https://localhost:8000`` to view the just-built site. Pages will auto-refresh when changes are made.
 
 
