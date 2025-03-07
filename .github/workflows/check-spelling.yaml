@@ -7,7 +7,7 @@ on:
   pull_request:
 
 env:
-  PYTHON_VERSION: "3.11"
+  PYTHON_VERSION: "3.13"
 
 jobs:
   check-spelling:
@@ -21,14 +21,14 @@ jobs:
       with:
         python-version: "${{ env.PYTHON_VERSION }}"
         cache: "pipenv"
-    - name: "setup python / install pipenv"
-      run: "pip install pipenv"
+    - name: "setup python / install poetry"
+      run: "pipx install poetry"
     - name: "setup python / dependencies"
-      run: "pipenv install"
+      run: "poetry install"
     - name: "setup python / spelling problem matcher"
       run: |
         echo "::add-matcher::.github/sphinx-spelling-matcher.json"
     - name: "run spellcheck"
       run: |
-        pipenv run make spelling
+        poetry run make spelling
 
