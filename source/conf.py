@@ -22,7 +22,7 @@ import sys
 from pathlib import Path
 
 project = 'Vineflower'
-copyright = '2023 Vineflower Team and Contributors'
+copyright = '2023-2025 Vineflower Team and Contributors'
 author = 'Vineflower team'
 
 version_file = Path(__file__).parent.parent / 'vineflower-version'
