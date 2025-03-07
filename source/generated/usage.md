@@ -316,7 +316,7 @@ Tries to collapse if statements that have a ternary in their condition.
 ```{option} --thread-count=int
 How many threads to use to decompile.
 
-**Default**: `8`
+**Default**: `4`
 ```
 
 ```{option} --try-loop-fix=bool
