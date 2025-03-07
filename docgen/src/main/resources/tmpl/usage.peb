@@ -15,9 +15,9 @@
 {{ option.description | replace({'$': '\$'}) }}
 
 {% if option.defaultValue %}
+
 **Default**: `{{ option.defaultValue }}`
 {% endif %}
-
 ```
 
 {% endfor %}
