@@ -16,15 +16,15 @@ jobs:
     runs-on: "ubuntu-latest"
     steps:
     - uses: "actions/checkout@v4"
+    - name: "setup python / install poetry"
+      run: "pipx install poetry"
     - name: "setup python ${{ env.PYTHON_VERSION }}"
       uses: "actions/setup-python@v5"
       with:
         python-version: "${{ env.PYTHON_VERSION }}"
-        cache: "pipenv"
-    - name: "setup python / install poetry"
-      run: "pipx install poetry"
+        cache: "poetry"
     - name: "setup python / dependencies"
-      run: "poetry install"
+      run: "poetry sync"
     - name: "setup python / spelling problem matcher"
       run: |
         echo "::add-matcher::.github/sphinx-spelling-matcher.json"
