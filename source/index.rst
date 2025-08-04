@@ -67,8 +67,8 @@ Development (``-SNAPSHOT``) builds are published on the Sonatype OSS snapshots r
 
          <repositories>
              <repository>
-                <id>sonatype-oss-snapshots1</id>
-                <url>https://s01.oss.sonatype.org/content/repositories/snapshots/</url>
+                <id>sonatype-central-snapshots</id>
+                <url>https://central.sonatype.com/repository/maven-snapshots/</url>
              </repository>
          </repositories>
 
@@ -79,8 +79,8 @@ Development (``-SNAPSHOT``) builds are published on the Sonatype OSS snapshots r
 
          repositories {
             maven {
-                name = "sonatype-oss-snapshots1"
-                url = "https://s01.oss.sonatype.org/content/repositories/snapshots/"
+                name = "sonatype-central-snapshots"
+                url = "https://central.sonatype.com/repository/maven-snapshots/"
             }
          }
 
@@ -90,8 +90,8 @@ Development (``-SNAPSHOT``) builds are published on the Sonatype OSS snapshots r
       .. code:: kotlin
 
          repositories {
-            maven(url = "https://s01.oss.sonatype.org/content/repositories/snapshots/") {
-                name = "sonatype-oss-snapshots"
+            maven(url = "https://central.sonatype.com/repository/maven-snapshots/") {
+                name = "sonatype-central-snapshots"
             }
          }
 
