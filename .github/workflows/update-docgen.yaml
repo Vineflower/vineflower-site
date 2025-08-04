@@ -29,12 +29,12 @@ jobs:
     steps:
       - id: "token"
         name: "setup / fetch access token"
-        uses: "tibdex/github-app-token@v2"
+        uses: "actions/create-github-app-token@v2"
         with:
-          app_id: "${{ secrets.SITE_WORKER_ID }}"
-          private_key: "${{ secrets.SITE_WORKER_PRIVATE_KEY }}"
-          installation_retrieval_mode: "repository"
-          installation_retrieval_payload: "Vineflower/vineflower-site"
+          app-id: "${{ secrets.SITE_WORKER_ID }}"
+          private-key: "${{ secrets.SITE_WORKER_PRIVATE_KEY }}"
+          owner: "Vineflower"
+          repositories: "vineflower-site"
       - name: "setup / checkout"
         uses: "actions/checkout@v4"
         with:

@@ -8,7 +8,7 @@ pluginManagement {
 }
 
 plugins {
-    id 'org.gradle.toolchains.foojay-resolver-convention' version '0.9.0'
+    id 'org.gradle.toolchains.foojay-resolver-convention' version '1.0.0'
 }
 
 rootProject.name = "docgen"
@@ -19,7 +19,7 @@ dependencyResolutionManagement {
         mavenCentral()
         maven {
             name = "sonatypeSnapshots"
-            url = "https://s01.oss.sonatype.org/content/repositories/snapshots/"
+            url = "https://central.sonatype.com/repository/maven-snapshots/"
             mavenContent { snapshotsOnly() }
         }
     }
