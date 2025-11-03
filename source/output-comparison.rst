@@ -892,7 +892,7 @@ Vineflower, CFR, and JD-GUI properly keep the boxing. Fernflower and Procyon unb
 Double-brace initializers in enums
 ----------------------------------
 
-This test contains double brace initializers in enums, in compiled with Java 17. Taken from: https://github.com/Vineflower/vineflower/blob/1.11.1/testData/src/java17/pkg/TestDoubleBraceInitializersJ17.java
+This test contains double brace initializers in enums, compiled with Java 17. Taken from: https://github.com/Vineflower/vineflower/blob/1.11.1/testData/src/java17/pkg/TestDoubleBraceInitializersJ17.java
 
 .. tab-set::
 
@@ -1103,7 +1103,7 @@ Switch pattern matching is a Java 21 feature. Taken from: https://github.com/Vin
 
         <decompilation failure>
 
-Vineflower is able to fully recover the pattern match. Fernflower can detect the pattern match, but is unable to turn it into a switch expression. CFR and Procyon can't recognize the pattern match and end up leaving in the invokedynamic call. JD-GUI is unable to decompile the method.
+Vineflower is able to fully recover the pattern match. Fernflower can detect the pattern match, but is unable to turn it into a switch expression. CFR and Procyon can't recognize the pattern match and end up leaving in the invokedynamic call. Procyon also generates a synthetic class to approximate the invokedynamic behavior, which was not shown here for space. JD-GUI is unable to decompile the method.
 
 Definite Assignment
 -------------------
@@ -1624,7 +1624,7 @@ Vineflower and CFR are able to create the proper variable definition with :java:
 Text blocks
 -----------
 
-Text blocks are a Java 15 feature that compile into the same bytecode as regular strings. https://github.com/Vineflower/vineflower/blob/1.11.1/testData/src/java16/pkg/TestTextBlocks.java
+Text blocks are a Java 15 feature that compile into the same bytecode as regular strings. Taken from: https://github.com/Vineflower/vineflower/blob/1.11.1/testData/src/java16/pkg/TestTextBlocks.java
 
 .. tab-set::
 

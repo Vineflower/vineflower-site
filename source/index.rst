@@ -2,98 +2,18 @@
 Vineflower
 ==========
 
-Vineflower is a modern Java decompiler aiming to be as accurate as possible, while not sacrificing the readability of the generated code. Vineflower supports modern Java (J21+), automatic reformatting of output code, and multithreaded decompilation. The main repository for Vineflower is located on GitHub at `Vineflower/vineflower <https://github.com/Vineflower/vineflower>`_.
+Vineflower is a modern Java decompiler aiming to be as accurate as possible, while not sacrificing the readability of the generated code. Vineflower supports modern Java (J21+), automatic reformatting of output code, and multithreaded decompilation. A detailed comparison of Vineflower's output compared to other decompilers can be found on the `output comparison <output-comparison>`_ page.
+
+The main repository for Vineflower is located on GitHub at `Vineflower/vineflower <https://github.com/Vineflower/vineflower>`_.
 
 Downloads
 ============
 
-The primary mode of distribution for Vineflower is the jar, which can be found on the `releases page <https://github.com/Vineflower/vineflower/releases>`_ on GitHub, which can also found on maven. There is also an `Intellij Plugin <https://plugins.jetbrains.com/plugin/18032-quiltflower>`_ for use. New releases are announced on the `mailing lists <https://vineflower.org/mailing-lists/announce>`_.
+The primary mode of distribution for Vineflower is the jar, which can be found on the `releases page <https://github.com/Vineflower/vineflower/releases>`_ on GitHub and on Maven Central. There is also an `Intellij plugin <https://plugins.jetbrains.com/plugin/18032-quiltflower>`_ for use. New releases are announced on the `mailing lists <https://vineflower.org/mailing-lists/announce>`_.
 
-Running Vineflower requires a Java 17 or newer JVM, though classpath context can be loaded from any other JVM using the ``-jrt`` CLI parameter.
+Running Vineflower requires a Java 17 or newer JVM, though classpath context can be loaded from any other JVM using the ``-jrt`` CLI parameter. Information on using Vineflower from the command line can be accessed from the `command line usage <usage>`_ page.
 
-Vineflower is published on Maven Central, and can be accessed from build scripts like so:
-
-.. tab-set::
-
-   .. tab-item:: Maven
-      :sync: maven
-
-      .. code-block:: xml
-        :substitutions:
-
-         <dependency>
-            <groupId>org.vineflower</groupId>
-            <artifactId>vineflower</artifactId>
-            <version>|version|</version>
-         </dependency>
-
-   .. tab-item:: Gradle (Groovy)
-      :sync: gradle-groovy
-
-      .. code-block:: groovy
-        :substitutions:
-
-         repositories {
-            mavenCentral()
-         }
-
-         dependencies {
-            implementation "org.vineflower:vineflower:|version|"
-         }
-
-
-   .. tab-item:: Gradle (Kotlin)
-      :sync: gradle-kotlin
-
-      .. code-block:: kotlin
-        :substitutions:
-
-         repositories {
-            mavenCentral()
-         }
-
-         dependencies {
-            implementation("org.vineflower:vineflower:|version|")
-         }
-
-Development (``-SNAPSHOT``) builds are published on the Sonatype OSS snapshots repository as well for testing purposes:
-
-.. tab-set::
-
-   .. tab-item:: Maven
-      :sync: maven
-
-      .. code:: xml
-
-         <repositories>
-             <repository>
-                <id>sonatype-central-snapshots</id>
-                <url>https://central.sonatype.com/repository/maven-snapshots/</url>
-             </repository>
-         </repositories>
-
-   .. tab-item:: Gradle (Groovy)
-      :sync: gradle-groovy
-
-      .. code:: groovy
-
-         repositories {
-            maven {
-                name = "sonatype-central-snapshots"
-                url = "https://central.sonatype.com/repository/maven-snapshots/"
-            }
-         }
-
-   .. tab-item:: Gradle (Kotlin)
-      :sync: gradle-kotlin
-
-      .. code:: kotlin
-
-         repositories {
-            maven(url = "https://central.sonatype.com/repository/maven-snapshots/") {
-                name = "sonatype-central-snapshots"
-            }
-         }
+Information on using Vineflower from code as a library can be accessed from the `code usage <usage-code>`_ page.
 
 Socials
 =========
@@ -108,9 +28,13 @@ To get in touch for queries, please check out the socials_ page.
    :hidden:
 
    usage
+   usage-code
    output-comparison
    socials
    contributing
    version-history
 
 .. _socials: socials
+.. _usage: usage
+.. _usage-code: usage-code
+.. _output-comparison: output-comparison
