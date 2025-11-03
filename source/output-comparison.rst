@@ -4,7 +4,7 @@ Output Comparison
 
 This page shows some examples of Vineflower's output when compared to other contemporary decompilers: Fernflower, CFR, Procyon, and JD-GUI.
 
-This page was created using Vineflower `1.11.1 <https://github.com/Vineflower/vineflower/releases/tag/1.11.1>`__, Fernflower built from commit `7261c6b73b82e7a0d5d82d4bb179cc090df91bb5 <https://github.com/JetBrains/fernflower/commit/7261c6b73b82e7a0d5d82d4bb179cc090df91bb5>`__, and CFR `0.152 <https://github.com/leibnitz27/cfr/releases/tag/0.152>`__, Procyon `0.6.0 <https://github.com/mstrobel/procyon/releases/tag/v0.6.0>`__, and JD-GUI `1.6.6 <https://github.com/java-decompiler/jd-gui/releases/tag/v1.6.6>`__. Some classes that didn't open in JD-GUI were tried again in JD-CLI `1.2.0 <https://github.com/intoolswetrust/jd-cli/releases/tag/jd-cli-1.2.0>`__ to give it another shot. Fernflower was run with dgs=1 (decompile generics), crp=1 (decompile record patterns), cps=1 (decompile switch patterns) iec=1 (include entire classpath) to match Vineflower's defaults. CFR was run with --sealed true. The output code style has been normalized to 2 spaces.
+This page was created using Vineflower `1.11.1 <https://github.com/Vineflower/vineflower/releases/tag/1.11.1>`__, Fernflower built from commit `7261c6b73b82e7a0d5d82d4bb179cc090df91bb5 <https://github.com/JetBrains/fernflower/commit/7261c6b73b82e7a0d5d82d4bb179cc090df91bb5>`__, CFR `0.152 <https://github.com/leibnitz27/cfr/releases/tag/0.152>`__, Procyon `0.6.0 <https://github.com/mstrobel/procyon/releases/tag/v0.6.0>`__, and JD-GUI `1.6.6 <https://github.com/java-decompiler/jd-gui/releases/tag/v1.6.6>`__. Some classes that didn't open in JD-GUI were tried again in JD-CLI `1.2.0 <https://github.com/intoolswetrust/jd-cli/releases/tag/jd-cli-1.2.0>`__ to give it another shot. Fernflower was run with ``dgs=1`` (decompile generics), ``crp=1`` (decompile record patterns), ``cps=1`` (decompile switch patterns) ``iec=1`` (include entire classpath) to match Vineflower's defaults. CFR was run with ``--sealed true``. The output code style has been normalized to 2 spaces.
 
 Double casted float precision
 -----------------------------
@@ -67,7 +67,7 @@ This test shows implicit casting from a float constant to double. Taken from: ht
           double x = 0.20000000298023224D;
         }
 
-Vineflower, Fernflower, and CFR are able to write the constant as a float instead of a rounded double. Procyon and JD-GUI are unable to recognize the pattern. Fernflower also emits an unnecessary :java:`(float)` cast.
+Vineflower, Fernflower, and CFR are able to write the constant as a float instead of a rounded double. Procyon and JD-GUI are unable to recognize the pattern. Fernflower also emits an unnecessary :java:`(double)` cast.
 
 Shift left on long
 ------------------
@@ -638,7 +638,7 @@ Switch expressions are a Java 14 feature. Taken from: https://github.com/Vineflo
             "Unknown";
         }
 
-Vineflower, CFR, and Procyon properly decompile the switch expression. Vineflower creates a switch expression, but is unable to process the assignment as an implicit :java:`yield` expression. JD-GUI creates an invalid decompilation.
+Vineflower, CFR, and Procyon properly decompile the switch expression. Fernflower creates a switch expression, but is unable to process the assignment as an implicit :java:`yield` expression. JD-GUI creates an invalid decompilation.
 
 Generic usage of null
 ---------------------
@@ -787,7 +787,7 @@ This test shows the usage of pattern matching in an argument to produce a boolea
 
         <failed to decompile>
 
-Vineflower is able to recover the pattern match. CFR is able to recover the pattern match, but it produces unnecessary local variable definitions. Fernflower and Procyon are unable to recover the pattern match, and use a labeled break to recover the control flow. JD-GUI can't decompile the method.
+Vineflower is able to recover the pattern match. CFR is able to avoid using labels, but it doesn't recover the pattern match and produces unnecessary local variable definitions. Fernflower and Procyon are unable to recover the pattern match, and use a labeled break to recover the control flow. JD-GUI can't decompile the method.
 
 Top-level boxing
 ----------------
@@ -887,7 +887,7 @@ This test shows the usage of boxing as a top-level statement, which can confuse 
           Float.valueOf(0.9F);
         }
 
-Vineflower, CFR, and JD-GUI properly keep the boxing. Fernflower and Procyon unbox the
+Vineflower, CFR, and JD-GUI properly keep the boxing. Fernflower and Procyon unbox the constants, which leads to invalid syntax.
 
 Double-brace initializers in enums
 ----------------------------------
@@ -993,7 +993,7 @@ This test contains double brace initializers in enums, in compiled with Java 17.
 
         <no decompiled output>
 
-Vineflower, CFR, and Procyon can decompile the code properly. Fernflower adds an unnecessary :java:`private` modifier, while JD-GUI doesn't produce any output.
+Vineflower and CFR can decompile the code properly. Fernflower adds an unnecessary :java:`private` modifier, while Procyon adds unnecessary :java:`permits` clause to the output. JD-GUI fails to decompile the code entirely.
 
 Switch pattern matching
 -----------------------
@@ -1038,13 +1038,13 @@ Switch pattern matching is a Java 21 feature. Taken from: https://github.com/Vin
         public String test2(Object o) {
           String var10000;
           switch (o) {
-             case Integer i -> var10000 = Integer.toString(i);
-             case String s -> var10000 = s;
-             default -> var10000 = "null";
+            case Integer i -> var10000 = Integer.toString(i);
+            case String s -> var10000 = s;
+            default -> var10000 = "null";
           }
 
           return var10000;
-       }
+        }
 
    .. tab-item:: CFR
 

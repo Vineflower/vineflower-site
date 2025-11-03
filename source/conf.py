@@ -145,7 +145,10 @@ github_default_org_project = ('Vineflower', 'vineflower')
 # sphinx-reredirects
 redirects = {
     'socials/discord': 'https://discord.com/invite/MsBAZamXGF',
-    'socials/matrix': 'https://matrix.to/#/#vineflower:dfsek.com'
+    'socials/matrix': 'https://matrix.to/#/#vineflower:dfsek.com',
+    'mailing-lists/announce': 'https://lists.sr.ht/~jasmine/vineflower-announce',
+    'mailing-lists/devel': 'https://lists.sr.ht/~jasmine/vineflower-devel',
+    'mailing-lists/discuss': 'https://lists.sr.ht/~jasmine/vineflower-discuss'
 }
 
 # sphinxcontrib-spelling
