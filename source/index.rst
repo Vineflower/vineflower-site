@@ -108,6 +108,7 @@ To get in touch for queries, please check out the socials_ page.
    :hidden:
 
    usage
+   output-comparison
    socials
    contributing
    version-history
