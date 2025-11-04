@@ -15,6 +15,11 @@ Running Vineflower requires a Java 17 or newer JVM, though classpath context can
 
 Information on using Vineflower from code as a library can be accessed from the `code usage <usage-code>`_ page.
 
+Development
+===========
+
+Vineflower is a work-in-progress project, and any contributions are appreciated. Details for working on Vineflower itself is located on the `Vineflower development <development>`_ page. Information on creating new Vineflower plugins can be found on the `Plugin development <plugins>`_ page.
+
 Socials
 =========
 
@@ -30,6 +35,8 @@ To get in touch for queries, please check out the socials_ page.
    usage
    usage-code
    output-comparison
+   development
+   plugins
    socials
    contributing
    version-history
@@ -38,3 +45,5 @@ To get in touch for queries, please check out the socials_ page.
 .. _usage: usage
 .. _usage-code: usage-code
 .. _output-comparison: output-comparison
+.. _development: development
+.. _plugins: plugins
