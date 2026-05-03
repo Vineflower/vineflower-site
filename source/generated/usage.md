@@ -161,6 +161,12 @@ Give the decompiler information about every jar on the classpath.
 
 ```{option} --include-runtime=string
 Give the decompiler information about the Java runtime, either 1 or current for the current runtime, or a path to another runtime
+
+**Default**: `1`
+```
+
+```{option} --included-classes=string
+Include classes in decompilation only if their fully qualified names match the specified regular expression.
 ```
 
 ```{option} --incorporate-returns=bool
@@ -205,6 +211,10 @@ Maximum time in seconds to process a method. This is deprecated, do not use.
 **Default**: `0`
 ```
 
+```{option} --method-to-decompile=string
+Option to decompile a single method. Set to owner + &quot;.&quot; + name + descriptor, e.g. foo/Bar.baz()V, or simply name + descriptor if you&#39;re only decompiling a single file and the method belongs to the root class.
+```
+
 ```{option} --new-line-separator=bool
 Use \n instead of \r\n for new lines. Deprecated, do not use.
 
@@ -233,6 +243,12 @@ Decompile with if and switch pattern matching enabled.
 Max line length before formatting is applied.
 
 **Default**: `160`
+```
+
+```{option} --prettify-ifs=bool
+Use heuristics to restructure if statements to make them clearer to read.
+
+**Default**: `1`
 ```
 
 ```{option} --remove-bridge=bool
@@ -347,7 +363,7 @@ Use method parameter names, as given in the MethodParameters attribute.
 Path to a class that implements IIdentifierRenamer.
 ```
 
-```{option} --validate-inner-classes-names=string
+```{option} --validate-inner-classes-names=bool
 Validates that the inner class name is correct (if it is separated using &quot;\$&quot; for example BaseClass\$InnerClass). If not then inner class won&#39;t be processed.
 
 **Default**: `1`
@@ -361,6 +377,12 @@ Verify that anonymous classes are local.
 
 ```{option} --verify-merges=bool
 Tries harder to verify the validity of variable merges. If there are strange variable recompilation issues, this is a good place to start.
+
+**Default**: `0`
+```
+
+```{option} --verify-pre-post-merges=bool
+Will try to validate that code before and after variable merges is equivalent
 
 **Default**: `0`
 ```
@@ -391,10 +413,22 @@ Convert string concatenations to Kotlin string templates.
 **Default**: `1`
 ```
 
+```{option} --kt-decompile-facades=bool
+Decompile multi-file facades into their wrapper-function classes.
+
+**Default**: `0`
+```
+
 ```{option} --kt-enable=bool
 Decompile Kotlin classes as Kotlin instead of Java
 
 **Default**: `1`
+```
+
+```{option} --kt-export-metadata=bool
+If Kotlin decompilation is disabled, metadata will not be parsed. If enabled, this will always parse Kotlin metadata for use by other plugins.
+
+**Default**: `0`
 ```
 
 ```{option} --kt-show-public=bool
