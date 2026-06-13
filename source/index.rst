@@ -9,7 +9,7 @@ The main repository for Vineflower is located on GitHub at `Vineflower/vineflowe
 Downloads
 ============
 
-The primary mode of distribution for Vineflower is the jar, which can be found on the `releases page <https://github.com/Vineflower/vineflower/releases>`_ on GitHub and on Maven Central. There is also an `Intellij plugin <https://plugins.jetbrains.com/plugin/18032-quiltflower>`_ for use. New releases are announced on the `mailing lists <https://vineflower.org/mailing-lists/announce>`_.
+The primary mode of distribution for Vineflower is the jar, which can be found on the `releases page <https://github.com/Vineflower/vineflower/releases>`_ on GitHub and on Maven Central. New releases are announced on the `mailing lists <https://vineflower.org/mailing-lists/announce>`_.
 
 Running Vineflower requires a Java 17 or newer JVM, though classpath context can be loaded from any other JVM using the ``-jrt`` CLI parameter. Information on using Vineflower from the command line can be accessed from the `command line usage <usage>`_ page.
 
